@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+
+  <header class="sticky-top navigation">
+    <div class=container>
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class=navbar-brand href="index-admin.html"><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <i class="ti-align-right text-dark"></i></button>
+        <div class="collapse navbar-collapse text-center" id=navigation>
+          <ul class="navbar-nav mx-auto align-items-center">
+
+            <form class="form-inline search-wrapper d-none d-lg-block" action="/publish_search" method="POST">
+              <input type='search' id="search" name="search_txt" class="form-control" placeholder=" ค้นหาข้อมูล...">
+              <button class="border-0 bg-white" type="submit"><i class="ti-search"></i></button>
+            </form>
+          </ul>
+          <a class="nav-link" href="/index-admin.html">หน้าแรก</a>
+          <a href="/logout" class="btn btn-sm btn-outline-primary ml-lg-4">ออกจากระบบ</a>
+        </div>
+      </nav>
+    </div>
+
+  </header>
+
+  <section class="section pb-0">
+    <div class="container">
+      <div class="align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+          <h2 class="section-title1">ข่าวประชาสัมพันธ์</h2>
+          <ul class="navbar-nav mx-auto align-items-center">
+          </ul>
+
+            <a input type="button" href="/add-publish-admin.html" class=" nav-link btn btn-sm btn-primary">เพิ่มข่าว</a>
+            {% if my_id == "admin" %}
+              {% if by != '' %}
+                <input type="button" class="br nav-link btn btn-sm btn-primary" onclick="location.href='/publish-admin.html/2';" value="ข่าวคณะ"/>
+              {% else %}
+                <input type="button" class="br nav-link btn btn-sm btn-primary" onclick="location.href='/publish-admin.html/rmutk2';" value="ข่าวมหาวิทยาลัย"/>
+              {% endif %}
+                <input type="button"  class=" nav-link btn btn-sm btn1=" onclick="location.href='/publish-admin.html/closed2';" value="ข่าวที่ปิดการใช้งาน"/>
+            {% else %}
+                {% if by != '' %}
+                <input type="button" class="br nav-link btn btn-sm btn-primary" onclick="location.href='/publish-admin.html';" value="ข่าวคณะ"/>
+              {% else %}
+                <input type="button" class="br nav-link btn btn-sm btn-primary" onclick="location.href='/publish-admin.html/rmutk';" value="ข่าวมหาวิทยาลัย"/>
+              {% endif %}
+                <input type="button"  class=" nav-link btn btn-sm btn1=" onclick="location.href='/publish-admin.html/closed';" value="ข่าวที่ปิดการใช้งาน"/>
+            {% endif %}
+        </nav>
+
+          {% if length == 0 %}
+            <div class="card3">
+                <h4>ไม่พบข้อมูลจากการค้นหา</h4>
+            </div>
+          {% else %}
+
+
+          {% for news in data %}
+                {% if news.id != "n000" %}
+          {% if my_group == news.group or by == "admin" %}
+                <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><i class="fa fa-ellipsis-v" style="font-size:20px"></i></button>
+                  <div class="dropdown-content">
+                    <form action="/delete_news" method=post>
+                      <input type="hidden" name="id" value="{{news.id}}">
+                      <a><input type="button" class=" btn btn-sm btn-primary" onclick="location.href='/edit-publish-admin.html/{{news.id}}';" value="แก้ไขข้อมูล" /></a>
+                      <a href="#"> <input type="submit" class=" btn btn-sm btn-security " style='float: right;' name="delete" value="ลบช้อมูล" ></a>
+                    </form>
+                  </div>
+                  </div>
+
+          {% elif news.group != "@มหาวิทยาลัย" or by == "admin" %}
+                <div class="dropdown" style="float:right;">
+                <button class="dropbtn"><i class="fa fa-ellipsis-v" style="font-size:20px"></i></button>
+                  <div class="dropdown-content">
+                    <form action="/delete_news" method=post>
+                      <input type="hidden" name="id" value="{{news.id}}">
+                        <a><input type="button" class=" btn btn-sm btn-primary" onclick="location.href='/edit-publish-admin.html/{{news.id}}';" value="แก้ไขข้อมูล" /></a>
+                      <a href="#"> <input type="submit" class=" btn btn-sm btn-security " style='float: right;' name="delete" value="ลบช้อมูล" ></a>
+                    </form>
+                  </div>
+                  </div>
+          {% else %}
+          <div class="dropdown" style="float:right;">
+
+                  </div>
+          {% endif %}
+                <div onclick="location.href='/publish-details-admin.html/{{news.id}}'" class="course">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card-block">
+                                <div class="name">
+                                    {% if news.type == "โพส" %}
+                                     <img class="d-block " src="https://cdn-icons-png.flaticon.com/512/4436/4436481.png" title="โพสแล้ว" style="height:30px" ><h2>{{news.title}}</h2>
+                                    {% else %}
+                                    <img class="d-block " src="https://cdn2.iconfinder.com/data/icons/web-and-apps-interface/32/Cancel-512.png" title="ยังไม่โพส" style="height:30px"><h2>{{news.title}}</h2>
+                                    {% endif %}
+                                </div>
+
+
+                {% endif %}
+
+                {% if news.id != "n000" %}
+                    <p class="text">
+                      {% for i in range(news.length) %}
+                        {% if i < news.length %}
+                          {{news.detail[i]}}<br>
+                        {% else %}
+                          {{news.detail[i]}}
+                        {% endif %}
+                      {% endfor %}</p>
+                    {% endif %}
+                    {% if news.id != "n000" %}
+                        <div style="position: absolute;bottom: 10px; font-size: 12px;">คณะ {{news.group}} <br> สร้างเมื่อ {{news.date}}<br>เวลา {{news.time}}</div>
+
+
+                        </div>
+                {% endif %}
+                {% if news.id != "n000" %}
+                      </div>
+                      <div class="col-lg-4 content-item" style="width: 300px;margin: 1px auto;">
+                          <div class="pic">
+                            <img class="d-block" src="{{news.image}}" alt="" style="height:300px">
+                          </div>
+                      </div>
+                    </div>
+                </div>
+           {% endif %}
+
+            {% if news.id == "n000" %}
+                <div class="course">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card-block">
+                                <div class="name"> <h2>{{news.title}}</h2> </div>
+                {% endif %}
+
+
+        {% endfor %}
+
+        {% endif %}
+      </div>
+    </div>
+</div>
+                </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+</body>
+
+</html>

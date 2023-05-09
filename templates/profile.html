@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK NEWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <header class="sticky-top navigation">
+        <div class=container>
+          <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+            <a class=navbar-brand href="index.html"><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+              <i class="ti-align-right h4 text-dark"></i></button>
+            <div class="collapse navbar-collapse text-center" id=navigation>
+              <ul class="navbar-nav mx-auto align-items-center">
+
+              </ul>
+              <a class="nav-link" href="index.html">หน้าแรก</a>
+              <a href="/logout" class="btn btn-sm btn-primary ml-lg-4">ออกจากระบบ</a>
+            </div>
+
+          </nav>
+        </div>
+      </header>
+
+    <style>
+
+
+
+        body {
+	font-family: 'Montserrat', sans-serif;
+	background: #e7e7e7;
+	height: 100vh;
+}
+h33 {
+	text-align: center;
+	color: #413b3b;
+	text-transform: uppercase;
+	font-size: 80px;
+	font-family: 'Zen Tokyo Zoo', cursive;
+}
+h55 {
+	text-align: center;
+	color: #82807f;
+	margin: 80px auto;
+	font-size: 20px;
+	width: 50%;
+	line-height: 1.7;
+}
+
+
+.overlay55 {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+.overlay55:target {
+	visibility: visible;
+	opacity: 1;
+}
+.wrapper55 {
+	margin: 70px auto;
+	padding: 20px;
+	background: #e7e7e7;
+	border-radius: 5px;
+	top: 20%;
+	width: 30%;
+	position: relative;
+	transition: all 5s ease-in-out;
+}
+.wrapper55 h22 {
+	margin-top: 0;
+	color: #333;
+}
+.wrapper55 .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+.wrapper55 .close:hover {
+	color: #06D85F;
+}
+.wrapper55 .content {
+	max-height: 30%;
+	overflow: auto;
+}
+/*form*/
+
+.container55 {
+	border-radius: 5px;
+	background-color: #e7e7e7;
+	padding: 20px 0;
+}
+form label {
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 3px;
+}
+input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}
+input[type="submit"] {
+	background-color: #413b3b;
+	color: #fff;
+	padding: 15px 50px;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+}
+}
+    </style>
+
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+          <form >
+              <tr>
+          <div class="card2">
+
+            <table class="pro">
+                <tbody>
+                  <tr align="right">
+                    <td colspan="1">
+                      <div class="checkbox mx-3">
+                          {% if data.notify == '1' %}
+                            <input type="checkbox" id="noti" name="notify" checked>
+                            <br>
+                            <label for="noti" class="text"></label>
+                          {% else %}
+                            <input type="checkbox" id="noti2" name="notify">
+                            <br>
+                            <label for="noti2" class="text"></label>
+                          {% endif %}
+                            <th scope="row" class="text1"><button type="submit" class="nav-link btn-sm btn btn-primary" style="left: -421px; top: 39px;">ยืนยันการแก้ไข</button></th>
+                      </div>
+                  </tr>
+
+                  </td>
+                  </tr>
+                  <tr>
+                    <th><br><br></th>
+                   </tr>
+                  <tr align="center">
+                    <td colspan="2"><img src="{{data.img}}" alt="" name="picture" style="width: 190px;"></td>
+                  </tr>
+                 <tr>
+                  <th><br><br></th>
+                 </tr>
+                  <tr>
+                    <th scope="row" style="padding-right: 24px;padding-left: 96px;">ชื่อผู้ใช้งาน :</th>
+                    <th scope="row" style="padding-right: 62px;padding-left: 60px;">{{data.name}} </th>
+                  </tr>
+                  <tr>
+                    <th scope="row" style="padding-right: 24px;padding-left: 96px;">รหัสประจำตัว :</th>
+                    <th scope="row" style="padding-right: 62px;padding-left: 60px;">{{data.id}} </th>
+                  </tr>
+                  <tr>
+                    <th scope="row" style="padding-right: 24px;padding-left: 96px;">สถานะ :</th>
+                    <th scope="row" style="padding-right: 62px;padding-left: 60px;">{{data.status}} </th>
+                  </tr>
+                    <tr>
+                    <th scope="row" style="padding-right: 24px;padding-left: 96px;">คณะ :</th>
+                    <th scope="row" style="padding-right: 62px;padding-left: 60px;">{{data.branch}} </th>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+              </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="box55">
+                    <a class="button55" href="#divOne">เปลี่ยนรหัสผ่าน</a>
+                </div>
+                <div class="overlay55" id="divOne">
+                    <div class="wrapper55">
+                        <h22>ตั้งค่าผู้ใช้</h22><a class="close" href="#">&times;</a>
+                        <div class="content55">
+                            <div class="container55">
+                                    <form class="login100-form validate-form" method="post" action="/password">
+                                    <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+                                        <label for="oldpass" class="text">รหัสผ่านเดิม :</label>
+                                        <input class="input100" type="password" name="oldpass">
+                                        <span class="focus-input100" ></span>
+                                    </div>
+                                    <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+                                        <label for="newpass" class="text">รหัสผ่านใหม่ :    </label>
+                                        <input class="input100" type="password" name="newpass">
+                                        <span class="focus-input100" ></span>
+                                    </div>
+                                    <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+                                        <label for="conpass" class="text">ยืนยันรหัสผ่านใหม่ :   </label>
+                                        <input class="input100" type="password" name="conpass">
+                                        <span class="focus-input100" ></span>
+                                    </div>
+
+                                    <input type="submit" class="btn-sm btn btn-primary" value="ยืนยัน">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+</section>
+
+<footer>
+  <div class="container">
+  </div>
+</footer>
+
+
+<script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+
+</body>
+</html>

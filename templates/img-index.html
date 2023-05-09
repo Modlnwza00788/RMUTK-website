@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK NEWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="sticky-top navigation">
+    <div class=container>
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class=navbar-brand href=""><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <i class="ti-align-right text-dark"></i></button>
+        <div class="collapse navbar-collapse text-center" id=navigation>
+          <ul class="navbar-nav mx-auto align-items-center">
+          </ul>
+          <a class="nav-link"  href="/index-admin.html">หน้าแรก</a>
+          <a href="/logout" class="btn btn-sm btn-primary ml-lg-4">ออกจากระบบ</a>
+        </div>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="p-5 shadow rounded content">
+            <h2 class="section-title">ข้อมูลผู้ใช้</h2>
+            <form method="POST" action="/img_in" enctype="multipart/form-data">
+              <div class="form-group">
+              <label>ใส่ลิงก์ลงในรูป</label>
+              <input type="text" class="form-control" id="name" name="url" placeholder="กรุณาใส่ลิงก์ลงในรูป" value="{{data.url}}"
+                required>
+            </div>
+              <div class="form-group">
+                <label>รูปปัจจุบัน</label>
+                 <input type="hidden" name="id" value="{{id}}">
+
+                <img src="{{image}}"  width="300" height="150">
+              </div>
+
+              <div class="form-group">
+                <h1 style="font-size:15px; color:red; font-weight:bold;">ขนาดรูป 1980x1080</h1>
+                <br>
+                <label>เปลี่ยนรูปหน้าหลัก<br></label>
+                <br>
+                <div class="button_outer">
+                  <div class="btn_upload">
+                    <input type="hidden" id="old_file" name="oldFile" value="{{image}}">
+                    <input type="file" id="upload_file" name="file">
+                    เลือกรูป
+                  </div>
+                <div class="processing_bar"></div>
+                <div class="success_box"></div>
+                </div>
+
+                <div class="error_msg"></div>
+
+                <div class="uploaded_file_view" id="uploaded_view">
+                  <span class="file_remove">X</span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">บันทึก</button>
+              <button onclick="location.href='/admin/edit-img-admin.html'" class="btn btn-security">ยกเลิก</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+  <script src="{{ url_for('static', filename = 'js/custom.js')}}"></script>
+
+
+</body>
+
+</html>

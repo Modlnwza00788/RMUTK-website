@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK NEWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="sticky-top navigation">
+    <div class=container>
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class=navbar-brand href="/index.html"><img class="img-fluid"
+            src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <i class="ti-align-right text-dark"></i></button>
+        <div class="collapse navbar-collapse text-center" id=navigation>
+          <ul class="navbar-nav mx-auto align-items-center">
+          </ul>
+          <a class="nav-link" href="/index.html">หน้าแรก</a>
+          <a href="/logout" class="btn btn-sm btn-primary ml-lg-4">ออกจากระบบ</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section pb-0">
+    <div class="container">
+      <div class="align-items-center">
+
+        <h2 class="section-title">กระทู้ : {{data.title}}</h2>
+
+        <div class="card4">
+          <div class="infos">
+            <h1 class="text">โดย : {{data.name}} #{{data.owner}}</h1>
+            <p class="text">
+            {% for i in range(data.length) %}
+            {% if i < data.length %} {{data.detail[i]}}<br>
+              {% else %}
+              {{data.detail[i]}}
+              {% endif %}
+              {% endfor %}</p>
+            <center>
+            <img src="{{data.img2}}" style="width:50%">
+            </center>
+          </div>
+        </div>
+        ({{data.date}} {{data.time}})
+      </div>
+    </div>
+  </section>
+
+
+  <div class="container bootdey">
+    <div class="col-md-12 bootstrap snippets">
+    <div class="panel1">
+      <div class="panel-body">
+        <form method="POST" action="/add_reply">
+        <input type="hidden" name="id" value="{{data.id}}">
+        <textarea style="resize:none;" name="detail" maxlength="650" rows="7" id="txt" class="form-control"
+                  placeholder="แสดงความคิดเห็นของท่าน ....."></textarea>
+          <br>
+        <div class="mar-top clearfix">
+          <div class="form-group">
+              <div class='file-input'>
+                <input type="file" id="upload_file" name="file">
+                <span class='button'>เพิ่มรูป</span>
+                <span class='label' data-js-label>กรุณาเลือกไฟล์.....</span>
+              </div>
+          <button class="btn btn-lg btn-primary btn-p" type="submit"> โพสต์ </button>
+        </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    {% for rep in reply %}
+    <div class="panel1">
+        <div class="panel-body">
+        <div class="media-block">
+          <a class="media-left"><img class="img-circle img-sm" alt="Profile Picture" src="{{rep.img1}}"></a>
+          <div class="media-body">
+            <div class="mar-btm">
+              <a href="#" class="green text-semibold media-heading box-inline">{{rep.name}} #{{rep.owner}}</a>
+              <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> ({{rep.date}} {{rep.time}})</p>
+            </div>
+            <p class="text">{% for i in range(rep.length) %}
+                {% if i < rep.length %}
+                  {{rep.detail[i]}}<br>
+                {% else %}
+                  {{rep.detail[i]}}
+                {% endif %}
+              {% endfor %}</p>
+            <hr>
+          </div>
+          </div>
+            <hr>
+          </div>
+      {% endfor %}
+        </div>
+      </div>
+    </div>
+
+
+
+<!--      </div>-->
+
+
+
+
+  <footer>
+    <div class="container"><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+  </footer>
+
+
+  <script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+  <script src="{{ url_for('static', filename = 'js/custom.js')}}"></script>
+
+</body>
+
+</html>

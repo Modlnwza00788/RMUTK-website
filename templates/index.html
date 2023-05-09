@@ -1,0 +1,161 @@
+
+		<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+
+</head>
+<body>
+
+<header class="sticky-top navigation">
+  <div class=container>
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+      <a class=navbar-brand href="index.html"><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+        <i class="ti-align-right text-dark"></i></button>
+      <div class="collapse navbar-collapse text-center" id=navigation>
+        <ul class="navbar-nav mx-auto align-items-center">
+   
+        </ul>
+        <a class="nav-link" href="index.html">หน้าแรก</a>
+        <a class="nav-link" href="profile.html">โปรไฟล์</a>
+        <a class="nav-link" href="password">เปลี่ยนรหัสผ่าน</a>
+        <a href="/logout" class=" nav-link btn btn-sm btn-outline-primary ml-lg-4">ออกจากระบบ</a>
+    
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+<br>
+
+<section class="section1 pb-0 ">
+  <div class="container">
+      <div class="slideshow-container">
+          <div class="slider" >
+          <div class="slides">
+              <input type="radio" name="radio-btn" id="radio1">
+              <input type="radio" name="radio-btn" id="radio2">
+              <input type="radio" name="radio-btn" id="radio3">
+
+              <div class="slide first">
+                <a href="{{url1}}" ><img src="{{img1}}" style="width:100%"></a>
+              </div>
+            <div class="slide">
+                <a href="{{url2}}" ><img src="{{img2}}" style="width:100%"></a>
+              </div>
+             <div class="slide">
+                 <a href="{{url3}}" > <img src="{{img3}}" style="width:100%"></a>
+              </div>
+
+              <div class="navigation-auto">
+                  <div class="auto-btn1"></div>
+                  <div class="auto-btn2"></div>
+                  <div class="auto-btn3"></div>
+              </div>
+          </div>
+          <div class="navigation-manual">
+              <label for="radio1" class="manual-btn"></label>
+              <label for="radio2" class="manual-btn"></label>
+              <label for="radio3" class="manual-btn"></label>
+          </div>
+          </div>
+      </div>
+</div>
+</section>
+<script type="text/javascript">
+var counter = 1;
+setInterval(function(){
+	document.getElementById('radio' + counter).checked = true;
+    counter++;
+	if(counter > 3){
+	counter = 1;
+	}
+},5000);
+</script>
+
+
+
+<section class="section pb-0 ">
+  <div class="container">
+  <div>
+            <div class="boardz centered-block fitted">
+                <ul>
+                    <li>
+                        <div class="card match-height" >
+                            <div class="card-body">
+                              <i class="card-icon ti-announcement mb-4"></i>
+                              <h3 class="card-title h4">ข่าวประชาสัมพันธ์</h3>
+                              <p class="card-text">เพิ่มรายละเอียดประชาสัมพันธ์ทางสถาบัน</p>
+                              <a href="publish.html" class="btn btn-sm btn-primary ">ดูรายละเอียด</a>
+                            </div>
+                          </div>
+                    </li>
+                    <li>
+                        <div class="card match-height">
+                            <div class="card-body">
+                              <i class="card-icon ti-layers-alt mb-4"></i>
+                              <h3 class="card-title h4">กระทู้</h3>
+                              <p class="card-text">ข้อมูลรายละเอียดกระทู้</p>
+                              <a href="interact.html" class="btn btn-sm btn-primary ">ดูรายละเอียด</a>
+                            </div>
+                          </div>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <div class="card match-height">
+                            <div class="card-body">
+                              <i class="card-icon ti-agenda mb-4"></i>
+                              <h3 class="card-title h4">ข่าวกิจกรรม</h3>
+                              <p class="card-text">เพิ่มรายละเอียดกิจกรรมทางสถาบัน</p>
+                              <a href="activity.html" class="btn btn-sm btn-primary ">ดูรายละเอียด</a>
+                            </div>
+                          </div>
+                    </li>
+                    <li>
+                        <div class="card match-height " >
+                            <div class="card-body">
+                              <i class="card-icon ti-user mb-4"></i>
+                              <h3 class="card-title h4">ติดต่อ</h3>
+                              <p class="card-text">ดูรายละเอียดผู้ใช้งาน</p>
+                              <a href="contact.html" class="btn btn-sm btn-primary ">ดูรายละเอียด</a>
+                            </div>
+                          </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br> <br>
+  </div>
+
+<footer class="colorfooter">
+  <div class="container">
+    <div class="row align-items-center border-bottom py-2">
+      <div class="foot">
+        <ul class="list-inline footer-menu text-center text-lg-left">
+          <li class="list-inline-item"><a href="https://web.facebook.com/UTKUniversity?_rdc=1&_rdr><img src="{{ url_for('static', filename = 'images/Untitled.gif') }}" width="30%" title="Facebook"></a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 text-center mb-4 mb-lg-0">
+        <a class="navbar-brand" href="">
+          <img class="img-fluid" src="{{ url_for('static', filename = 'images/logo2.png') }}" alt="Hugo documentation theme" width="200px">
+        </a>
+      </div>
+
+    </div>
+  </div>
+</footer>
+<script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+
+
+</body>
+</html>

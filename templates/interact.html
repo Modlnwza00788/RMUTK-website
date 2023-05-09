@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK NEWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+
+  <style>
+    table tr td {
+    text-align: left;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header class="sticky-top navigation">
+    <div class=container>
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class=navbar-brand href="/index.html"><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <i class="ti-align-right text-dark"></i></button>
+        <div class="collapse navbar-collapse text-center" id=navigation>
+          <ul class="navbar-nav mx-auto align-items-center">
+
+            <form class="form-inline search-wrapper d-none d-lg-block" action="/interact_search" method="POST">
+              <input type='search' id="search" name="search_txt" class="form-control" placeholder=" ค้นหาข้อมูล...">
+              <button class="border-0 bg-white" type="submit"><i class="ti-search"></i></button>
+            </form>
+          </ul>
+          <a class="nav-link" href="/index.html">หน้าแรก</a>
+          <a href="/logout" class="btn btn-sm btn-primary ml-lg-4">ออกจากระบบ</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <section class="section pb-0">
+    <div class="container">
+      <div class="align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+
+            <h2 class="section-title1">กระทู้
+            </h2>
+
+              <ul class="navbar-nav mx-auto align-items-center">
+              </ul>
+
+              {% if by != '' %}
+              <h2 class="br">โดย {{by}}</h2>
+              <input type="button" class="br nav-link btn btn-sm btn-primary" onclick="location.href='/interact.html';" value="แสดงกระทู้ทั้งหมด"/>
+              {% else %}
+              <input type="button" class="br nav-link btn btn-sm btn-primary" onclick="location.href='/interact.html/{{my_id}}';" value="แสดงกระทู้ของฉัน"/>
+              {% endif %}
+          <a href="add-interact-admin.html" class=" nav-link btn btn-sm btn-primary ">เพิ่มข้อมูล</a>
+        </nav>
+        {% for thread in data %}
+        {% if thread.id != 't000' %}
+          <div onclick="location.href='/interact_details.html/{{thread.id}}'" class="card3">
+        {% else %}
+          <div class="card3">
+        {% endif %}
+          <div class="infos" id="txt">
+            {% if thread.id != 't000' %}
+            <div class="name"><h2>{{thread.title}}</h2><p>({{thread.datetime}})</p></div>
+            {% else %}
+            <div class="name"><h2>ยังไม่มีกระทู้</h2> </div>
+            {% endif %}
+          </div>
+          </div>
+            {% if my_id == thread.owner %}
+                <input type="button" style="padding: 6.5px 10px" class="a1 btn btn-primary" onclick="location.href='/edit-interact-admin.html/{{thread.id}}';" value="แก้ไขข้อมูล" />
+                <input type="button" class="a2 nav-link btn btn-security" style="padding: 5px 10px" onclick="location.href='/delete_interact/{{thread.id}}';" value="ลบกระทู้" />
+
+                {% else %}
+                <input type="button" style="padding: 5px 10px" class="a3 nav-link btn btn-security"  value="รีพอส" />
+                {% endif %}
+                {% endfor %}
+
+
+      </div>
+    </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK NEWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+  <style>
+    table tr td {
+        text-align: left;
+    }   
+</style>
+</head>
+<body>
+
+  <header class="sticky-top navigation">
+    <div class=container>
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class=navbar-brand href="index-admin.html"><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <i class="ti-align-right text-dark"></i></button>
+        <div class="collapse navbar-collapse text-center" id=navigation>
+          <ul class="navbar-nav mx-auto align-items-center">
+            <form class="form-inline search-wrapper d-none d-lg-block" action="/user_search" method="POST">
+              <input type='search' id="search" name="search_txt" class="form-control" placeholder=" ค้นหาข้อมูล...">
+              <button class="border-0 bg-white" type="submit"><i class="ti-search"></i></button>
+            </form>
+          </ul>
+          <a class="nav-link" href="/index-admin.html">หน้าแรก</a>
+          <a href="/logout" class="btn btn-sm btn-primary ml-lg-4">ออกจากระบบ</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+
+
+  <section class="section pb-0">
+    <div class="container">
+      <div class="align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+            <h2 class="section-title1">ผู้ใช้งาน</h2>
+              <ul class="navbar-nav mx-auto align-items-center">
+              </ul>
+
+          <form method="post" action="success_multiple" enctype="multipart/form-data">
+            <a href="add-user-admin.html" class="nav-link btn btn-sm btn-primary mb-10">เพิ่มข้อมูล</a>
+            {% if my_id == "admin" %}
+              {% if by != '' %}
+              <a type="button" class="nav-link btn btn-sm btn-primary  mb-10" onclick="location.href='/user-admin.html';">ผู้ใช้เปิดการใช้งาน</a>
+              {% else %}
+              <a type="button" class="nav-link btn btn-sm btn1 mb-10" onclick="location.href='/user-admin.html/closed';">ผู้ใช้ปิดการใช้งาน</a>
+              {% endif %}
+            {% else %}
+              {% if by != '' %}
+              <a type="button" class="nav-link btn btn-sm btn-primary  mb-10" onclick="location.href='/user-admin.html/2';">ผู้ใช้เปิดการใช้งาน</a>
+              {% else %}
+              <a type="button" class="nav-link btn btn-sm btn1 mb-10" onclick="location.href='/user-admin.html/closed2';">ผู้ใช้ปิดการใช้งาน</a>
+              {% endif %}
+            {% endif %}
+            <input class="btn-sm mb-10 btn3" type="file" id="file-selector" accept=".csv" name="file">
+            <input class="btn btn-sm btn-primary" type="submit" value="ยืนยัน">
+            </form>
+
+          </nav>
+        {% if length == 0 %}
+        <div class="card3">
+            <h4>ไม่พบผู้ใช้</h4>
+        </div>
+        {% else %}
+
+        {% for user in data %}
+        {% if my_group == "admin" %}
+        <form action="/delete_user" method=post>
+        <div class="card3">
+            <table>
+                <thead >
+                  <tr>
+                    <th scope="col" ></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" width="25%">ชื่อผู้ใช้งาน  :</th>
+                    <th value="{{user.prefix}}" name="prefix">{{user.prefix}} {{user.name}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">รหัสประจำตัว :</th>
+                    <th ><input type="hidden" value="{{user.id}}" name="id">{{user.id}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">อีเมล</th>
+                    <th >{{user.email}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">รหัสผ่าน :</th>
+                    <th >{{user.password}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">คณะ :</th>
+                    <th >{{user.branch}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">สถานะ :</th>
+                    <th >{{user.status}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <th>
+                      {% if user.id != "admin" %}
+                      <input type="submit" class=" btn btn-sm btn1 " style="float:right;" name="delete" value="ลบช้อมูล">
+                      <input type="button" class=" br btn btn-sm btn-primary" style="float:right;" onclick="location.href='/edit-user-admin.html/{{user.id}}';" value="แก้ไขข้อมูล" />
+                      {% endif %}
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          </form>
+
+        {%else %}
+
+        {% if user.branch == my_group %}
+        <form action="/delete_user" method=post>
+        <div class="card3">
+            <table>
+                <thead >
+                  <tr>
+                    <th scope="col" ></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" width="25%">ชื่อผู้ใช้งาน  :</th>
+                    <th >{{user.name}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">รหัสประจำตัว :</th>
+                    <th ><input type="hidden" value="{{user.id}}" name="id">{{user.id}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">อีเมล</th>
+                    <th >{{user.email}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">รหัสผ่าน :</th>
+                    <th >{{user.password}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">คณะ :</th>
+                    <th >{{user.branch}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row" width="25%">สถานะ :</th>
+                    <th >{{user.status}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <th>
+                      {% if user.name != "admin" %}
+                      <input type="submit" class=" btn btn-sm btn1 " style="float:right;" name="delete" value="ลบช้อมูล">
+                      <input type="button" class=" br btn btn-sm btn-primary" style="float:right;" onclick="location.href='/edit-user-admin.html/{{user.id}}';" value="แก้ไขข้อมูล" />
+                      {% endif %}
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          </form>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <footer>
+    <div class="container">
+    </div>
+  </footer>
+
+
+
+  <script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+
+</body>
+
+</html>

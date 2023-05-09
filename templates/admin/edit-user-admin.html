@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <title>RMUTK NEWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/themify-icons/themify-icons.css') }}">
+  <link href="{{ url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="sticky-top navigation">
+    <div class=container>
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class=navbar-brand href=""><img class="img-fluid" src="{{ url_for('static', filename = 'images/logo.png')}}" alt="godocs"></a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+          <i class="ti-align-right text-dark"></i></button>
+        <div class="collapse navbar-collapse text-center" id=navigation>
+          <ul class="navbar-nav mx-auto align-items-center">
+          </ul>
+          <a class="nav-link" href="/index-admin.html">หน้าแรก</a>
+          <a href="/logout" class="btn btn-sm btn-primary ml-lg-4">ออกจากระบบ</a>
+        </div>
+
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="p-5 shadow rounded content">
+            <h2 class="section-title">ข้อมูลผู้ใช้</h2>
+            <form method="POST" action="/edit_user" enctype="multipart/form-data">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="ID">คำนำหน้า</label>
+                  <br>
+                  <select name="prefix" id="prefix" class="btn-sm">
+                    {% if data.prefix == "นาย" %}
+                    <option value="mr" selected>นาย</option>
+                    <option value="mis">นางสาว</option>
+                    <option value="mrs">นาง</option>
+                    <option value="pro">ศาสตราจารย์</option>
+                    <option value="acp">รองศาสตราจารย์</option>
+                    <option value="atp">ผู้ช่วยศาสตราจารย์</option>
+                    {% elif data.prefix == "นางสาว" %}
+                    <option value="mr">นาย</option>
+                    <option value="mis" selected>นางสาว</option>
+                    <option value="mrs">นาง</option>
+                    <option value="pro">ศาสตราจารย์</option>
+                    <option value="acp">รองศาสตราจารย์</option>
+                    <option value="atp">ผู้ช่วยศาสตราจารย์</option>
+                    {% elif data.prefix == "นาง" %}
+                    <option value="mrs" selected>นาง</option>
+                    <option value="mr">นาย</option>
+                    <option value="mis">นางสาว</option>
+                    <option value="pro">ศาสตราจารย์</option>
+                    <option value="acp">รองศาสตราจารย์</option>
+                    <option value="atp">ผู้ช่วยศาสตราจารย์</option>
+                    {% elif data.prefix == "ศาสตราจารย์" %}
+                    <option value="pro" selected>ศาสตราจารย์</option>
+                    <option value="mr">นาย</option>
+                    <option value="mis">นางสาว</option>
+                    <option value="mrs">นาง</option>
+                    <option value="acp">รองศาสตราจารย์</option>
+                    <option value="atp">ผู้ช่วยศาสตราจารย์</option>
+                    {% elif data.prefix == "รองศาสตราจารย์" %}
+                    <option value="acp" selected>รองศาสตราจารย์</option>
+                    <option value="mr">นาย</option>
+                    <option value="mis">นางสาว</option>
+                    <option value="mrs">นาง</option>
+                    <option value="pro">ศาสตราจารย์</option>
+                    <option value="atp">ผู้ช่วยศาสตราจารย์</option>
+                    {% elif data.prefix == "ผู้ช่วยศาสตราจารย์" %}
+                    <option value="atp" selected>ผู้ช่วยศาสตราจารย์</option>
+                    <option value="mr">นาย</option>
+                    <option value="mis">นางสาว</option>
+                    <option value="mrs">นาง</option>
+                    <option value="pro">ศาสตราจารย์</option>
+                    <option value="acp">รองศาสตราจารย์</option>
+                    {% endif %}
+                </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">ชื่อ-นามสกุล</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="กรุณากรอกชื่อและนามสกุล" value="{{data.name}}">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="ID">รหัสประจำตัว</label>
+                  <input type="hidden" name="oldId" value="{{id}}">
+                  <input type="number" class="form-control" id="ID" name="id" placeholder="กรุณากรอกรหัสประจำตัว" value="{{id}}"
+                    required>
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="ID">อีเมล</label>
+                  <input type="hidden" name="oldEmail" value="{{data.email}}">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="กรุณากรอกอีเมล" value="{{data.email}}" required >
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">รหัสผ่าน</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="กรุณากรอกรหัสผ่าน" value="{{data.password}}">
+                </div>
+              </div>
+
+
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>สถานะ</label>
+                    <br>
+                      <select name="status" id="status" class="btn-sm">
+                        {% if datatoken.id != "admin" %}
+                  {% if data.status == 1 %}
+
+                        <option value="admin" selected>ผู้ดูแล</option>
+                    {% else %}
+                        <option value="user" selected>นักศึกษา</option>
+
+                    {% endif %}
+                  {% else %}
+                    {% if data.status == 1 %}
+                        <option value="user" >นักศึกษา</option>
+                        <option value="admin" selected>ผู้ดูแล</option>
+                    {% else %}
+                        <option value="user" selected>นักศึกษา</option>
+                        <option value="admin">ผู้ดูแล</option>
+                    {% endif %}
+                          {% endif %}
+                      </select>
+
+                </div>
+
+              <!------
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>สถานะ</label>
+                  <select name="status" id="status" class="btn-sm" style="background-color:green; color:white">
+                    {% if data.status == 1 %}
+                    <option value="user" >นักศึกษา</option>
+                    <option value="admin" selected>ผู้ดูแล</option>
+                    {% else %}
+                    <option value="user" selected>นักศึกษา</option>
+                    <option value="admin">ผู้ดูแล</option>
+                    {% endif %}
+                  </select>
+                </div>
+                  !--->
+                <div class="form-group col-md-6">
+                  <label>คณะ</label>
+                  <br>
+                  {% if my_id == 'admin' %}
+                  <select name="branch" id="branch" class="btn-sm">
+                      {% for d in DBranch %}
+                      <option value={{d}}> {{d}} </option>
+                      {% endfor %}
+                  </select>
+                  {% else %}
+                    <input type="text" class="form-control" id="branch" name="branch" placeholder="กรุณากรอกรหัสผ่าน" value="{{my_group}}" readonly>
+                  {% endif %}
+                </div>
+              </div>
+
+              <br>
+              <div class="form-group">
+
+                <label>รูปประจำตัว</label>
+                <img src="{{image}}"  width="300" height="150">
+
+              </div>
+
+              <div class="form-group">
+                <label>เปลี่ยนรูปประจำตัว<br></label>
+                <br>
+                <div class="button_outer">
+                  <div class="btn_upload">
+                    <input type="hidden" id="old_file" name="oldFile" value="{{image}}">
+                    <input type="file" id="upload_file" name="file">
+                    เลือกรูปประจำตัว
+                  </div>
+                <div class="processing_bar"></div>
+                <div class="success_box"></div>
+                </div>
+
+                <div class="error_msg"></div>
+
+                <div class="uploaded_file_view" id="uploaded_view">
+                  <span class="file_remove">X</span>
+                </div>
+              </div>
+              <div>
+               <input type="checkbox" id="checkbox" name="isOn" value="open">
+              <label for="checkbox"> เปิดใช้งานผู้ใช้</label>
+              </div>
+              <button type="submit" class="btn btn-primary">บันทึก</button>
+              <button onclick="location.href='/user-admin.html'" class="btn btn-security">ยกเลิก</button>
+            </form>
+
+              {% if data.notify == 1 %}
+              <p style="color:green">เพิ่มผู้ใช้สำเร็จ</p>
+              {% elif data.notify == 2 %}
+              <p style="color:red">รหัสประจำตัวซ้ำ</p>
+              {% elif data.notify == 3 %}
+              <p style="color:red">อีเมลซ้ำ</p>
+              {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename = 'plugins/jQuery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/script.js')}}"></script>
+  <script src="{{ url_for('static', filename = 'js/custom.js')}}"></script>
+
+
+</body>
+
+</html>
